@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="th">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>หลักสูตรรายวิชา</title>
+    <style>
+        body {
+            font-family: "TH Sarabun New", "Sarabun", serif;
+            font-size: 14pt;
+            margin: 30px;
+            color: #111;
+            line-height: 1.6;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 20pt;
+            margin-bottom: 8px;
+        }
+
+        .meta {
+            margin: 8px 0;
+        }
+
+        .label {
+            font-weight: bold;
+            display: inline-block;
+            width: 160px;
+            vertical-align: top;
+        }
+
+        .box {
+            padding: 8px;
+            min-height: 40px;
+            display: inline-block;
+            width: calc(100% - 180px);
+
+            border-radius: 4px;
+        }
+
+        .section {
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 12px;
+        }
+
+        .bigbox {
+            padding: 10px;
+            min-height: 70px;
+            white-space: pre-wrap;
+
+            border-radius: 4px;
+
+        }
+
+        .box-meta {
+            margin: 10px 0;
+        }
+
+        .dots {
+            display: inline-block;
+            padding: 8px;
+            min-height: 40px;
+            border-radius: 4px;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>หลักสูตรรายวิชา</h1>
+    <h1>หลักสูตร ประกาศนียบัตรวิชาชีพ……</h1>
+    <h1>กลุ่มอาชีพฮาร์ดแวร์ …………………………………………..</h1>
+
+    <% if (typeof หลักสูตร !=='undefined' && หลักสูตร) { %>
+        <div class="meta">
+            <span class="label">หลักสูตร</span>
+            <span class="box">
+                <%= หลักสูตร %>
+            </span>
+        </div>
+        <% } %>
+
+            <% if (typeof ประเภทวิชา !=='undefined' && ประเภทวิชา) { %>
+                <div class="meta">
+                    <span class="label">ประเภทวิชา</span>
+                    <span class="box">
+                        <%= ประเภทวิชา %>
+                    </span>
+                </div>
+                <% } %>
+
+                    <div class="box-meta">
+                        <span class="label">รหัส</span>
+                        <span class="dots" style="max-width: 150px;">
+                            <%= typeof รหัสวิชา !=='undefined' ? รหัสวิชา : '' %>
+                        </span>
+                        <span class="label">ชื่อวิชา</span>
+                        <span class="dots">
+                            <%= typeof ชื่อวิชา !=='undefined' ? ชื่อวิชา : '' %>
+                        </span>
+                    </div>
+
+                    <% if (typeof ชื่อวิชาอังกฤษ !=='undefined' && ชื่อวิชาอังกฤษ) { %>
+                        <div class="meta">
+                            <span class="label">ชื่อวิชาภาษาอังกฤษ</span>
+                            <span class="box">
+                                <%= ชื่อวิชาอังกฤษ %>
+                            </span>
+                        </div>
+                        <% } %>
+
+                            <div class="meta">
+                                <span class="label">ทฤษฎี / ปฏิบัติ / หน่วยกิต</span>
+                                <span class="box">
+                                    <%= typeof ทฤษฎี !=='undefined' ? ทฤษฎี : "" %> ชั่วโมง/สัปดาห์ /
+                                        <%= typeof ปฏิบัติ !=='undefined' ? ปฏิบัติ : "" %> ชั่วโมง/สัปดาห์ /
+                                            <%= typeof หน่วยกิต !=='undefined' ? หน่วยกิต : "" %> หน่วยกิต
+                                </span>
+                            </div>
+
+                            <% if (typeof อ้างอิงมาตรฐาน !=='undefined' && อ้างอิงมาตรฐาน) { %>
+                                <div class="section">
+                                    <div class="label">อ้างอิงมาตรฐาน</div>
+                                    <div class="bigbox">
+                                        <%= อ้างอิงมาตรฐาน %>
+                                    </div>
+                                </div>
+                                <% } %>
+
+                                    <% if (typeof ผลลัพธ์รายวิชา !=='undefined' && ผลลัพธ์รายวิชา) { %>
+                                        <div class="section">
+                                            <div class="label">ผลลัพธ์การเรียนรู้ระดับรายวิชา</div>
+                                            <div class="bigbox">
+                                                <%= ผลลัพธ์รายวิชา %>
+                                            </div>
+                                        </div>
+                                        <% } %>
+
+                                            <% if (typeof จุดประสงค์รายวิชา !=='undefined' && จุดประสงค์รายวิชา) { %>
+                                                <div class="section">
+                                                    <div class="label">จุดประสงค์รายวิชา</div>
+                                                    <div class="bigbox">
+                                                        <ul>
+                                                            <% จุดประสงค์รายวิชา.split('\n').forEach(function(item){ %>
+                                                                <% if(item.trim() !=="" ) { %>
+                                                                    <li>
+                                                                        <%= item.trim() %>
+                                                                    </li>
+                                                                    <% } %>
+                                                                        <% }) %>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <% } %>
+
+                                                    <% if (typeof สมรรถนะรายวิชา !=='undefined' && สมรรถนะรายวิชา) { %>
+                                                        <div class="section">
+                                                            <div class="label">สมรรถนะรายวิชา</div>
+                                                            <div class="bigbox">
+                                                                <ul>
+                                                                    <% สมรรถนะรายวิชา.split('\n').forEach(function(item){
+                                                                        %>
+                                                                        <% if(item.trim() !=="" ) { %>
+                                                                            <li>
+                                                                                <%= item.trim() %>
+                                                                            </li>
+                                                                            <% } %>
+                                                                                <% }) %>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <% } %>
+
+                                                            <% if (typeof คำอธิบายรายวิชา !=='undefined' &&
+                                                                คำอธิบายรายวิชา) { %>
+                                                                <div class="section">
+                                                                    <div class="label">คำอธิบายรายวิชา</div>
+                                                                    <div class="bigbox">
+                                                                        <%= คำอธิบายรายวิชา %>
+                                                                    </div>
+                                                                </div>
+                                                                <% } %>
+
+                                                                    <% if (typeof เครื่องมือ !=='undefined' &&
+                                                                        เครื่องมือ) { %>
+                                                                        <div class="section">
+                                                                            <div class="label">เครื่องมือ/สิ่งนำมาสอน
+                                                                            </div>
+                                                                            <div class="bigbox">
+                                                                                <%= เครื่องมือ %>
+                                                                            </div>
+                                                                        </div>
+                                                                        <% } %>
+
+</body>
+
+</html>

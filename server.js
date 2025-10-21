@@ -266,17 +266,20 @@ function mapDataForTemplate(data, templateType) {
                 เครื่องมือ: findValue(data, ['เครื่องมือ/สิ่งนำมาสอน', 'เครื่องมือ'])
             };
 
-        case 'quotation':
+        case 'Unit_name':
+            const unitName = findValue(data, ['Unit_name', 'ชื่อหน่วยการเรียนรู้', 'ชื่อหน่วย']);
+            let unitTitle = unitName;
+
+            // ถ้ามีรูปแบบ "หน่วยที่ X: ชื่อ" → ตัดเอาแค่ชื่อ
+            if (unitName) {
+                const match = unitName.match(/หน่วยที่\s*\d+\s*:\s*(.+)/);
+                if (match) {
+                    unitTitle = match[1].trim();
+                }
+            }
+
             return {
-                เลขที่: findValue(data, ['เลขที่', 'เลขที่เอกสาร']),
-                วันที่: findValue(data, ['วันที่']),
-                ลูกค้า: findValue(data, ['ลูกค้า', 'ชื่อลูกค้า']),
-                ที่อยู่: findValue(data, ['ที่อยู่']),
-                รายการ: findValue(data, ['รายการ', 'รายการสินค้า']),
-                จำนวน: findValue(data, ['จำนวน']),
-                ราคาต่อหน่วย: findValue(data, ['ราคาต่อหน่วย', 'ราคา']),
-                ราคารวม: findValue(data, ['ราคารวม', 'รวม']),
-                หมายเหตุ: findValue(data, ['หมายเหตุ'])
+                ชื่อหน่วยการเรียนรู้: unitTitle || ''
             };
 
         case 'report':
@@ -318,9 +321,43 @@ async function generateDocuments(dataRows, templateType, sessionId) {
     const templateStr = await fs.readFile(templatePath, "utf8");
     const generatedFiles = [];
 
-    for (let i = 0; i < dataRows.length; i++) {
-        const row = dataRows[i];
-        const templateData = mapDataForTemplate(row, templateType);
+    // 🔥 สำหรับ Unit_name ให้สร้างเอกสารเดียวจากข้อมูลทั้งหมด
+    if (templateType === 'Unit_name') {
+        // รวบรวมเฉพาะชื่อหน่วยการเรียนรู้จากทุกแถว
+        const units = dataRows.map((row) => {
+            // ดึงค่า Unit_name จาก row
+            const unitName = findValue(row, ['Unit_name', 'ชื่อหน่วยการเรียนรู้', 'ชื่อหน่วย', 'หน่วยการเรียนรู้']);
+
+            let cleanName = unitName || '';
+
+            // ตัดส่วน "หน่วยที่ X: " ออก ถ้ามี
+            const match = cleanName.match(/หน่วยที่\s*\d+\s*[:：]\s*(.+)/);
+            if (match) {
+                cleanName = match[1].trim();
+            }
+
+            return {
+                name: cleanName,
+                theory: '', // ปล่อยว่างไว้ให้ user กรอกเอง
+                practice: '' // ปล่อยว่างไว้ให้ user กรอกเอง
+            };
+        });
+
+        // ส่งข้อมูลไปให้ template (ทุกอย่างเป็นค่าว่าง ยกเว้น units)
+        const templateData = {
+            courseCode: '',
+            courseName: '',
+            credits: '',
+            theoryHours: '',
+            practiceHours: '',
+            units: units,  // ส่ง array ของชื่อหน่วย
+            totalTheory: '',
+            totalPractice: '',
+            grandTotal: ''
+        };
+
+        logger.info(`📊 [${sessionId}] Creating Unit_name document with ${units.length} units`);
+        console.log('📋 Units data:', JSON.stringify(units, null, 2));
 
         try {
             const html = ejs.render(templateStr, templateData);
@@ -328,17 +365,7 @@ async function generateDocuments(dataRows, templateType, sessionId) {
             const arrayBuffer = await blob.arrayBuffer();
             const docxBuffer = Buffer.from(arrayBuffer);
 
-            const safeName = (
-                templateData.ชื่อวิชา ||
-                templateData.รหัสวิชา ||
-                templateData.เลขที่ ||
-                templateData.ชื่อสกุล ||
-                `document_${i + 1}`
-            )
-                .replace(/[\\/:*?"<>|]/g, "_")
-                .substring(0, 100);
-
-            const fileName = `${safeName}_${sessionId.substring(0, 8)}.docx`;
+            const fileName = `Unit_Learning_${sessionId.substring(0, 8)}.docx`;
             const filePath = path.join(config.outputDir, fileName);
 
             await fs.writeFile(filePath, docxBuffer);
@@ -347,9 +374,50 @@ async function generateDocuments(dataRows, templateType, sessionId) {
                 path: filePath,
                 url: `/output/${fileName}`
             });
+
+            logger.info(`✅ [${sessionId}] Generated: ${fileName} with ${units.length} units`);
         } catch (error) {
-            logger.error(`Error generating document ${i + 1}:`, error);
-            throw new Error(`ไม่สามารถสร้างเอกสารแถวที่ ${i + 1}: ${error.message}`);
+            logger.error(`❌ Error generating Unit_name document:`, error);
+            throw new Error(`ไม่สามารถสร้างเอกสารหน่วยการเรียนรู้: ${error.message}`);
+        }
+
+    } else {
+        // 🔥 สำหรับ template อื่นๆ (course, report, certificate) สร้างแยกแต่ละแถว
+        for (let i = 0; i < dataRows.length; i++) {
+            const row = dataRows[i];
+            const templateData = mapDataForTemplate(row, templateType);
+
+            try {
+                const html = ejs.render(templateStr, templateData);
+                const blob = htmlDocx.asBlob(html);
+                const arrayBuffer = await blob.arrayBuffer();
+                const docxBuffer = Buffer.from(arrayBuffer);
+
+                const safeName = (
+                    templateData.ชื่อวิชา ||
+                    templateData.รหัสวิชา ||
+                    templateData.เลขที่ ||
+                    templateData.ชื่อสกุล ||
+                    `document_${i + 1}`
+                )
+                    .replace(/[\\/:*?"<>|]/g, "_")
+                    .substring(0, 100);
+
+                const fileName = `${safeName}_${sessionId.substring(0, 8)}.docx`;
+                const filePath = path.join(config.outputDir, fileName);
+
+                await fs.writeFile(filePath, docxBuffer);
+                generatedFiles.push({
+                    name: fileName,
+                    path: filePath,
+                    url: `/output/${fileName}`
+                });
+
+                logger.info(`✅ [${sessionId}] Generated: ${fileName}`);
+            } catch (error) {
+                logger.error(`❌ Error generating document ${i + 1}:`, error);
+                throw new Error(`ไม่สามารถสร้างเอกสารแถวที่ ${i + 1}: ${error.message}`);
+            }
         }
     }
 
@@ -523,7 +591,7 @@ app.get("/api/templates", async (req, res) => {
     try {
         const templates = [
             { id: 'course', name: 'หลักสูตรรายวิชา', icon: '📚', description: 'สำหรับสร้างเอกสารหลักสูตรรายวิชา' },
-            { id: 'quotation', name: 'ใบเสนอราคา', icon: '💰', description: 'สำหรับสร้างใบเสนอราคา' },
+            { id: 'Unit_name', name: 'หน่วยการเรียนรู้', icon: '💰', description: 'สำหรับสร้างเอกสารหน่วยการเรียนรู้' },
             { id: 'report', name: 'รายงานผล', icon: '📊', description: 'สำหรับสร้างรายงานผล' },
             { id: 'certificate', name: 'หนังสือรับรอง', icon: '🏆', description: 'สำหรับสร้างหนังสือรับรอง' }
         ];
@@ -691,7 +759,6 @@ const gracefulShutdown = async (signal) => {
 process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
 process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 
-// ====== Start Server ======
 const server = app.listen(config.port, () => {
     const banner = `
 ${'='.repeat(70)}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>แผนการจัดการเรียนรู้ - <%= unit.Unit_name %></title>
+  <style>
+    body {
+      font-family: "TH SarabunPSK", "Sarabun", sans-serif;
+      font-size: 18pt;
+      margin: 50px;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      text-align: center;
+      font-weight: bold;
+    }
+    .section-title {
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    .indent {
+      margin-left: 40px;
+    }
+    pre {
+      white-space: pre-wrap;
+      font-family: "TH SarabunPSK", "Sarabun", sans-serif;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>แผนการจัดการเรียนรู้</h1>
+
+  <p>หน่วยที่ ..........</p>
+  <p>รหัสวิชา <%= unit.Subject_code || "…………" %> &nbsp;&nbsp; ชื่อวิชา <%= unit.Subject_name || "……………………………" %></p>
+  <p>สอนครั้งที่………..</p>
+
+  <p><b>ชื่อหน่วยการเรียนรู้:</b> <%= unit.Unit_name || "…………" %></p>
+
+  <p>ทฤษฎี <%= unit.Theory_hour || "…" %> ชม. &nbsp;&nbsp; ปฏิบัติ <%= unit.Practice_hour || "…" %> ชม.</p>
+
+  <p><b>ชื่อเรื่อง/งาน:</b> <%= unit.Unit_topic || "…………" %></p>
+
+  <hr>
+
+  <div class="section-title">1. ผลลัพธ์การเรียนรู้ระดับหน่วยการเรียน</div>
+  <pre><%= unit.Outcom || "…" %></pre>
+
+  <div class="section-title">2. อ้างอิงมาตรฐาน/เชื่อมโยงกลุ่มอาชีพ</div>
+  <div class="indent">
+    <p>2.1 มาตรฐานอาชีพ: <%= unit.tpqi || "…" %></p>
+    <p>สมรรถนะย่อย:</p>
+    <ol>
+      <li>เกณฑ์การปฏิบัติงาน: <%= unit.tpqi_criteria || "…" %></li>
+      <li>วิธีประเมิน: <%= unit.tpqi_evaluation || "…" %></li>
+      <li>หลักฐานการปฏิบัติงาน (Performance Evidence): <%= unit.tpqi_performance || "…" %></li>
+      <li>หลักฐานความรู้ (Knowledge Evidence): <%= unit.tpqi_knowledge || "…" %></li>
+    </ol>
+    <p>2.2 บูรณาการกลุ่มอาชีพ: <%= unit.tpqi_integration || "…" %></p>
+  </div>
+
+  <div class="section-title">3. สมรรถนะประจำหน่วย</div>
+  <pre><%= unit.Unit_competency || "…" %></pre>
+
+  <div class="section-title">4. จุดประสงค์เชิงพฤติกรรม</div>
+  <pre><%= unit.Unit_objective || "…" %></pre>
+
+  <div class="section-title">5. สาระการเรียนรู้</div>
+  <pre><%= unit.Unit_Learning_content || "…" %></pre>
+
+  <div class="section-title">6. กิจกรรมการเรียนรู้</div>
+  <pre><%= unit.Unit_Learning_activities || "…" %></pre>
+
+  <div class="section-title">7. สื่อและแหล่งการเรียนรู้</div>
+  <pre><%= unit.Unit_learning_resources || "…" %></pre>
+
+  <div class="section-title">8. หลักฐานการเรียนรู้</div>
+  <pre><%= unit.Unit_Evidence_learning || "…" %></pre>
+
+  <div class="section-title">9. การวัดและประเมินผล</div>
+  <pre><%= unit.Unit_Evaluation || "…" %></pre>
+
+  <div class="indent">
+    <p>9.1 เกณฑ์การปฏิบัติงาน ...........................................</p>
+    <p>9.2 วิธีการประเมิน ...........................................</p>
+    <p>9.3 เครื่องมือประเมิน ...........................................</p>
+  </div>
+
+  <div class="section-title">10. บันทึกผลหลังการจัดการเรียนรู้</div>
+  <div class="indent">
+    <p>10.1 ผลการจัดการเรียนรู้ที่เกิดขึ้นกับผู้เรียน</p>
+    <br><br><br>
+    <p>10.2 ปัญหา อุปสรรคที่พบ</p>
+    <br><br><br>
+    <p>10.3 การแก้ไขปัญหา</p>
+    <ol>
+      <li>ผลการแก้ไขปัญหาที่ส่งผลลัพธ์ที่ดีต่อผู้เรียน</li>
+      <br><br>
+      <li>แนวทางแก้ปัญหาในครั้งต่อไป</li>
+    </ol>
+  </div>
+
+</body>
+</html>

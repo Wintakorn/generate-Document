@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>มาตรฐานอาชีพและตารางวิเคราะห์</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+
+        body {
+            font-family: 'TH SarabunPSK', 'Sarabun', sans-serif;
+            font-size: 16pt;
+            line-height: 1.5;
+            margin: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .header h2 {
+            font-size: 18pt;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .header p {
+            margin: 5px 0;
+            font-size: 16pt;
+        }
+
+        .dotted-line {
+            display: inline-block;
+            border-bottom: 1px dotted #000;
+            min-width: 200px;
+            margin: 0 3px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 14pt;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #000;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        th {
+            font-weight: bold;
+        }
+
+        .text-left {
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        .note-section {
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .note-section h3 {
+            font-size: 16pt;
+            font-weight: bold;
+            text-decoration: underline;
+            margin: 10px 0;
+        }
+
+        .note-section ol {
+            padding-left: 30px;
+            margin: 10px 0;
+        }
+
+        .note-section li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .page-break {
+            page-break-after: always;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 18pt;
+            font-weight: bold;
+            margin: 30px 0 15px 0;
+        }
+
+        /* จัดความกว้างคอลัมน์ */
+        .col-code {
+            width: 8%;
+        }
+
+        .col-description {
+            width: 23%;
+        }
+
+        .col-small {
+            width: 15%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ============================================ -->
+    <!-- ส่วนที่ 1: มาตรฐานอาชีพ (แสดง 2 ครั้ง) -->
+    <!-- ============================================ -->
+
+
+    <div class="">
+        <div class="header">
+            <h2>มาตรฐานอาชีพ</h2>
+            <p><strong>หน่วยงานรับรองมาตรฐานอาชีพ สถาบันคุณวุฒิวิชาชีพ</strong></p>
+            <p>
+                <strong>มาตรฐานอาชีพ </strong>
+                <span class="dotted-line">
+                    <%= มาตรฐานอาชีพ || '..............................' %>
+                </span>
+            </p>
+            <p>
+
+            </p>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2">หน่วยสมรรถนะ</th>
+                    <th colspan="2">สมรรถนะย่อย</th>
+                    <th rowspan="2">เกณฑ์การปฏิบัติงาน</th>
+                    <th rowspan="2">วิธีประเมิน</th>
+                </tr>
+                <tr>
+                    <th class="col-code">รหัส</th>
+                    <th class="text-left">คำอธิบาย</th>
+                    <th class="col-code">รหัส</th>
+                    <th class="text-left">คำอธิบาย</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td class="col-code"></td>
+                    <td class="text-left"></td>
+                    <td class="col-code"></td>
+                    <td class="text-left"></td>
+                    <td class="text-left"></td>
+
+                </tr>
+
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="">
+        <div class="header">
+            <h2>มาตรฐานอาชีพ</h2>
+            <p><strong>หน่วยงานรับรองมาตรฐานอาชีพ สถาบันคุณวุฒิวิชาชีพ</strong></p>
+            <p>
+                <strong>มาตรฐานอาชีพ </strong>
+                <span class="dotted-line">
+                    <%= มาตรฐานอาชีพ || '..............................' %>
+                </span>
+            </p>
+            <p>
+
+            </p>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2">หน่วยสมรรถนะ</th>
+                    <th colspan="2">สมรรถนะย่อย</th>
+                    <th rowspan="2">เกณฑ์การปฏิบัติงาน</th>
+                    <th rowspan="2">วิธีประเมิน</th>
+                </tr>
+                <tr>
+                    <th class="col-code">รหัส</th>
+                    <th class="text-left">คำอธิบาย</th>
+                    <th class="col-code">รหัส</th>
+                    <th class="text-left">คำอธิบาย</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td class="col-code"></td>
+                    <td class="text-left"></td>
+                    <td class="col-code"></td>
+                    <td class="text-left"></td>
+                    <td class="text-left"></td>
+
+                </tr>
+
+
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- ============================================ -->
+    <!-- คำอธิบาย การเขียนมาตรฐานอาชีพ -->
+    <!-- ============================================ -->
+
+    <div class="note-section page-break">
+        <h3>คำอธิบาย การเขียนมาตรฐานอาชีพ</h3>
+        <ol>
+            <li>รายวิชาที่ไม่มีการอ้างอิงมาตรฐานอาชีพ ไม่ต้องจัดทำหน้านี้</li>
+            <li>รายวิชาที่มีการอ้างอิงมาตรฐานอาชีพ ให้ปรับแบบฟอร์มและคัดลอกมาตรฐานอาชีพ
+                ให้เป็นตามที่ หน่วยงาน หรือองค์การที่รับรองมาตรฐานอาชีพเป็นผู้กำหนด</li>
+            <li>รายวิชาที่มีการอ้างอิงมาตรฐานอาชีพ ไม่ครบทั้งมาตรฐาน ให้คัดลอกเฉพาะหน่วยสมรรถนะ
+                ที่อ้างอิงไว้ในรายวิชา</li>
+        </ol>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- ส่วนที่ 2: ตารางวิเคราะห์หน่วยการเรียนรู้ -->
+    <!-- ============================================ -->
+
+    <div class="section-title">ตารางวิเคราะห์หน่วยการเรียนรู้</div>
+
+    <table>
+        <thead>
+            <tr>
+                <th colspan="5" class="text-left" style="padding: 10px;">
+                    <strong>ผลลัพธ์การเรียนรู้ระดับรายวิชา (Job)</strong>
+                    <span class="dotted-line" style="min-width: 400px;"></span>
+                </th>
+            </tr>
+            <tr>
+                <th style="width: 15%;">งานหลัก<br>(Duty)</th>
+                <th style="width: 15%;">งานย่อย<br>(Task)</th>
+                <th style="width: 20%;">สมรรถนะย่อย<br>(มาตรฐานอาชีพ)</th>
+                <th style="width: 25%;">ความรู้<br>ในการปฏิบัติงาน</th>
+                <th style="width: 25%;">ทักษะ<br>ในการปฏิบัติงาน</th>
+            </tr>
+        </thead>
+
+    </table>
+
+    <!-- ============================================ -->
+    <!-- คำอธิบาย การเขียนตารางวิเคราะห์ -->
+    <!-- ============================================ -->
+
+    <div class="note-section">
+        <h3>คำอธิบาย การเขียนตารางวิเคราะห์หน่วยการเรียนรู้</h3>
+        <ol>
+            <li><strong>ขั้นที่ 1</strong> <strong>นำผลลัพธ์การเรียนรู้ระดับรายวิชา</strong> วิเคราะห์งาน (Job analysis)
+                เพื่อกำหนดงานหลัก (Duty) และงานย่อย (Task)
+                ที่ส่งผลให้ผู้เรียนมีสมรรถนะตามผลลัพธ์การเรียนรู้ระดับรายวิชาที่กำหนด</li>
+            <li><strong>ขั้นที่ 2</strong> กำหนดงานหลัก (Duty) และงานย่อย (Task)
+                เพิ่มเติมตามที่ปรากฏในมาตรฐานอาชีพ (ถ้ามี)</li>
+            <li><strong>ขั้นที่ 3</strong> <strong>ช่องสมรรถนะย่อย</strong> เป็นการเชื่อมโยงงานย่อย
+                ว่าสอดคล้องกับมาตรฐานอาชีพ
+                ตามสมรรถนะย่อยใด ให้นำสมรรถนะย่อยนั้นมาเขียน (วิชาที่ไม่ได้อ้างอิงมาตรฐานอาชีพ ไม่ต้องเขียนช่องนี้)</li>
+            <li><strong>ขั้นที่ 4</strong> การเขียน <strong>ความรู้และทักษะในการปฏิบัติงาน</strong>
+                ให้ตรวจสอบเนื้อหาจากคำอธิบายรายวิชา เพื่อมากำหนดเนื้อหาความรู้
+                และทักษะในการปฏิบัติงาน ของแต่ละงานย่อยให้ครบถ้วน</li>
+            <li><strong>ขั้นที่ 5</strong> ครูผู้สอนสามารถปรับปรุง พัฒนารายวิชาเพิ่มเติม ได้จากการเพิ่มเติม งานหลัก
+                งานย่อย ความรู้ หรือ ทักษะ เพิ่มเติมได้จากตารางวิเคราะห์หน่วยการเรียนนี้</li>
+        </ol>
+        <p style="margin-top: 15px;">
+            <strong style="text-decoration: underline;">หมายเหตุ</strong>
+            งานหลัก(Duty) และงานย่อย(Task) จะใช้เป็นข้อมูลในการพิจารณากำหนดหน่วยการเรียนรู้
+            เพื่อใช้วิเคราะห์พฤติกรรมการเรียนรู้ต่อไป
+        </p>
+    </div>
+</body>
+
+</html>

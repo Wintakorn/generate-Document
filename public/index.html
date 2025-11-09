@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ระบบสร้างเอกสารอัตโนมัติ</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap');
-        
+
         :root {
             --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
@@ -16,13 +18,13 @@
             --dark: #1a1a2e;
             --light: #f8f9fa;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Kanit', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -30,7 +32,7 @@
             color: #333;
             overflow-x: hidden;
         }
-        
+
         /* Animated Background */
         .animated-bg {
             position: fixed;
@@ -41,19 +43,19 @@
             z-index: -1;
             overflow: hidden;
         }
-        
+
         .floating-shapes {
             position: absolute;
             width: 100%;
             height: 100%;
         }
-        
+
         .shape {
             position: absolute;
             opacity: 0.1;
             animation: float 20s infinite;
         }
-        
+
         .shape:nth-child(1) {
             width: 80px;
             height: 80px;
@@ -63,7 +65,7 @@
             left: 10%;
             animation-delay: 0s;
         }
-        
+
         .shape:nth-child(2) {
             width: 60px;
             height: 60px;
@@ -73,7 +75,7 @@
             left: 80%;
             animation-delay: 2s;
         }
-        
+
         .shape:nth-child(3) {
             width: 100px;
             height: 100px;
@@ -83,24 +85,27 @@
             left: 20%;
             animation-delay: 4s;
         }
-        
+
         @keyframes float {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0) rotate(0deg);
             }
+
             50% {
                 transform: translateY(-50px) rotate(180deg);
             }
         }
-        
+
         /* Navigation */
         .navbar {
             background: rgba(26, 26, 46, 0.95) !important;
             backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             padding: 1rem 0;
         }
-        
+
         .navbar-brand {
             font-weight: 700;
             font-size: 1.5rem;
@@ -109,19 +114,19 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        
+
         .nav-link {
-            color: rgba(255,255,255,0.8) !important;
+            color: rgba(255, 255, 255, 0.8) !important;
             font-weight: 500;
             transition: all 0.3s;
             position: relative;
         }
-        
+
         .nav-link:hover {
             color: white !important;
             transform: translateY(-2px);
         }
-        
+
         .nav-link::after {
             content: '';
             position: absolute;
@@ -133,11 +138,11 @@
             transition: all 0.3s;
             transform: translateX(-50%);
         }
-        
+
         .nav-link:hover::after {
             width: 80%;
         }
-        
+
         /* Hero Section */
         .hero-section {
             background: transparent;
@@ -147,57 +152,58 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .hero-section h1 {
             font-weight: 700;
             font-size: 3.5rem;
             margin-bottom: 1.5rem;
-            text-shadow: 2px 2px 20px rgba(0,0,0,0.2);
+            text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.2);
             animation: fadeInUp 1s;
         }
-        
+
         .hero-section p {
             font-size: 1.3rem;
             margin-bottom: 2rem;
             opacity: 0.95;
             animation: fadeInUp 1s 0.2s backwards;
         }
-        
+
         .hero-section .btn {
             animation: fadeInUp 1s 0.4s backwards;
             padding: 0.8rem 2.5rem;
             border-radius: 50px;
             font-weight: 600;
             font-size: 1.1rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             transition: all 0.3s;
         }
-        
+
         .hero-section .btn:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
         }
-        
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
+
         /* Main Container */
         .main-container {
             background: white;
             border-radius: 30px 30px 0 0;
-            box-shadow: 0 -10px 50px rgba(0,0,0,0.1);
+            box-shadow: 0 -10px 50px rgba(0, 0, 0, 0.1);
             padding: 3rem 0;
             min-height: 600px;
         }
-        
+
         /* Step Indicator */
         .step-indicator {
             display: flex;
@@ -207,7 +213,7 @@
             padding: 2rem 0;
             position: relative;
         }
-        
+
         .step {
             display: flex;
             flex-direction: column;
@@ -216,7 +222,7 @@
             width: 160px;
             z-index: 1;
         }
-        
+
         .step:not(:last-child)::after {
             content: '';
             position: absolute;
@@ -227,12 +233,12 @@
             background: linear-gradient(90deg, #e0e0e0 0%, #e0e0e0 100%);
             z-index: -1;
         }
-        
+
         .step.active:not(:last-child)::after,
         .step.completed:not(:last-child)::after {
             background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
         }
-        
+
         .step-number {
             width: 50px;
             height: 50px;
@@ -246,22 +252,22 @@
             margin-bottom: 0.8rem;
             font-size: 1.2rem;
             transition: all 0.4s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
-        
+
         .step.active .step-number {
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             transform: scale(1.1);
             box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
         }
-        
+
         .step.completed .step-number {
             background: linear-gradient(135deg, #4facfe, #00f2fe);
             color: white;
             box-shadow: 0 6px 20px rgba(79, 172, 254, 0.4);
         }
-        
+
         .step-text {
             font-size: 0.95rem;
             font-weight: 500;
@@ -269,12 +275,12 @@
             color: #666;
             transition: all 0.3s;
         }
-        
+
         .step.active .step-text {
             color: #667eea;
             font-weight: 600;
         }
-        
+
         /* Template Cards */
         .template-card {
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -283,20 +289,20 @@
             overflow: hidden;
             height: 100%;
             background: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             cursor: pointer;
         }
-        
+
         .template-card:hover {
             transform: translateY(-10px) scale(1.02);
             box-shadow: 0 20px 50px rgba(102, 126, 234, 0.2);
         }
-        
+
         .template-card.selected {
             border: 3px solid #667eea;
             box-shadow: 0 20px 50px rgba(102, 126, 234, 0.3);
         }
-        
+
         .template-icon {
             font-size: 3.5rem;
             margin-bottom: 1.5rem;
@@ -306,40 +312,43 @@
             background-clip: text;
             animation: pulse 2s infinite;
         }
-        
+
         @keyframes pulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: scale(1);
             }
+
             50% {
                 transform: scale(1.05);
             }
         }
-        
+
         .template-card h5 {
             font-weight: 600;
             color: #333;
             margin-bottom: 0.8rem;
         }
-        
+
         .template-card p {
             color: #666;
             font-size: 0.95rem;
         }
-        
+
         .template-card .btn {
             border-radius: 50px;
             padding: 0.6rem 2rem;
             font-weight: 600;
             transition: all 0.3s;
         }
-        
+
         .template-card.selected .btn {
             background: linear-gradient(135deg, #667eea, #764ba2);
             border: none;
             color: white;
         }
-        
+
         /* Upload Area */
         .upload-area {
             border: 3px dashed #ddd;
@@ -352,7 +361,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .upload-area::before {
             content: '';
             position: absolute;
@@ -364,19 +373,19 @@
             opacity: 0;
             transition: opacity 0.4s;
         }
-        
+
         .upload-area:hover::before,
         .upload-area.dragover::before {
             opacity: 1;
         }
-        
+
         .upload-area:hover,
         .upload-area.dragover {
             border-color: #667eea;
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
             transform: scale(1.02);
         }
-        
+
         .upload-icon {
             font-size: 5rem;
             background: linear-gradient(135deg, #667eea, #764ba2);
@@ -386,55 +395,59 @@
             margin-bottom: 1.5rem;
             animation: bounce 2s infinite;
         }
-        
+
         @keyframes bounce {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0);
             }
+
             50% {
                 transform: translateY(-10px);
             }
         }
-        
+
         .upload-area h4 {
             font-weight: 600;
             color: #333;
             margin-bottom: 1rem;
         }
-        
+
         /* File Info */
         .file-info {
             background: linear-gradient(135deg, #f8f9fa, #e9ecef);
             border-radius: 15px;
             padding: 1.5rem;
             margin-top: 1.5rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
             animation: slideInUp 0.5s;
         }
-        
+
         @keyframes slideInUp {
             from {
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
+
         /* Cards */
         .card {
             border: none;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             transition: all 0.3s;
         }
-        
+
         .card:hover {
-            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
         }
-        
+
         /* Buttons */
         .btn-primary {
             background: linear-gradient(135deg, #667eea, #764ba2);
@@ -445,12 +458,12 @@
             transition: all 0.3s;
             box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
         }
-        
+
         .btn-primary:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
         }
-        
+
         .btn-success {
             background: linear-gradient(135deg, #4facfe, #00f2fe);
             border: none;
@@ -461,12 +474,12 @@
             transition: all 0.3s;
             box-shadow: 0 5px 20px rgba(79, 172, 254, 0.3);
         }
-        
+
         .btn-success:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 30px rgba(79, 172, 254, 0.4);
         }
-        
+
         .btn-download {
             background: linear-gradient(135deg, #f093fb, #f5576c);
             border: none;
@@ -476,27 +489,26 @@
             transition: all 0.3s;
             box-shadow: 0 5px 20px rgba(240, 147, 251, 0.3);
         }
-        
+
         .btn-download:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 30px rgba(240, 147, 251, 0.4);
         }
-        
-        /* Progress Section */
+
         .progress {
             height: 15px;
             border-radius: 50px;
             background: #e9ecef;
             overflow: hidden;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-        
+
         .progress-bar {
             background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
             border-radius: 50px;
             transition: width 0.6s ease;
         }
-        
+
         .spinner-border {
             width: 4rem !important;
             height: 4rem !important;
@@ -504,7 +516,7 @@
             border-color: #667eea !important;
             border-right-color: transparent !important;
         }
-        
+
         /* Result Section */
         .result-success-icon {
             font-size: 6rem;
@@ -514,18 +526,19 @@
             background-clip: text;
             animation: scaleIn 0.5s;
         }
-        
+
         @keyframes scaleIn {
             from {
                 transform: scale(0);
                 opacity: 0;
             }
+
             to {
                 transform: scale(1);
                 opacity: 1;
             }
         }
-        
+
         .file-item {
             display: flex;
             justify-content: space-between;
@@ -534,31 +547,31 @@
             border-bottom: 1px solid #f0f0f0;
             transition: all 0.3s;
         }
-        
+
         .file-item:hover {
             background: #f8f9fa;
             transform: translateX(5px);
         }
-        
+
         /* How To Section */
         .how-to-section {
             background: white;
             padding: 4rem 0;
             margin-top: 3rem;
         }
-        
+
         .how-to-card {
             transition: all 0.4s;
             border: none;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         }
-        
+
         .how-to-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
-        
+
         .how-to-card .icon {
             width: 80px;
             height: 80px;
@@ -572,45 +585,46 @@
             font-size: 2rem;
             box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
         }
-        
+
         /* Footer */
         .footer {
             background: rgba(26, 26, 46, 0.95);
-            color: rgba(255,255,255,0.8);
+            color: rgba(255, 255, 255, 0.8);
             padding: 3rem 0;
             margin-top: 4rem;
         }
-        
+
         /* Toast Notifications */
         .toast {
             border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
         }
-        
+
         /* Responsive */
         @media (max-width: 768px) {
             .hero-section h1 {
                 font-size: 2.5rem;
             }
-            
+
             .hero-section p {
                 font-size: 1.1rem;
             }
-            
+
             .step {
                 width: 80px;
             }
-            
+
             .step:not(:last-child)::after {
                 display: none;
             }
-            
+
             .template-icon {
                 font-size: 2.5rem;
             }
         }
     </style>
 </head>
+
 <body>
     <!-- Animated Background -->
     <div class="animated-bg">
@@ -652,10 +666,11 @@
         <div class="container text-center">
             <h1>สร้างเอกสารอัตโนมัติจากไฟล์ข้อมูล</h1>
             <p>แปลงข้อมูลจากไฟล์ Excel หรือ CSV เป็นเอกสาร Word อย่างรวดเร็วและแม่นยำ</p>
-            <a href="#templates" class="btn btn-light btn-lg">
+            <!-- <a href="#templates" class="btn btn-light btn-lg"
+                onclick="toast.error('กรุณาเลือกเทมเพลตก่อนเริ่มต้นใช้งาน!')">
                 <i class="fas fa-rocket me-2"></i>
                 เริ่มต้นใช้งาน
-            </a>
+            </a> -->
         </div>
     </section>
 
@@ -741,7 +756,7 @@
             <!-- Upload Section -->
             <div id="upload-section" class="mt-5" style="display: none;">
                 <h2 class="text-center mb-5 fw-bold">อัปโหลดไฟล์ข้อมูล</h2>
-                
+
                 <div class="row justify-content-center">
                     <div class="col-md-8">
                         <div class="card shadow">
@@ -750,25 +765,24 @@
                                     <i class="fas fa-cloud-upload-alt upload-icon"></i>
                                     <h4>ลากไฟล์มาวางที่นี่ หรือคลิกเพื่อเลือกไฟล์</h4>
                                     <p class="text-muted mb-3">รองรับไฟล์ CSV, XLSX, XLS (สูงสุด 10MB)</p>
-                                    <input type="file" id="file-input" accept=".csv,.xlsx,.xls" style="display: none;">
+                                    <input type="file" id="file-input" accept=".csv,.xlsx,.xls" style="display: none;"
+                                        multiple>
                                     <button class="btn btn-primary mt-3" id="browse-btn">
                                         <i class="fas fa-folder-open me-2"></i>เลือกไฟล์
                                     </button>
                                 </div>
-                                
+
+
                                 <div id="file-info" class="file-info" style="display: none;">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <i class="fas fa-file-excel text-success me-2 fs-3"></i>
-                                            <span id="file-name" class="fw-bold">ไฟล์ของคุณ</span>
-                                            <small class="text-muted d-block ms-5" id="file-size">ขนาดไฟล์</small>
-                                        </div>
-                                        <button class="btn btn-sm btn-outline-danger rounded-circle" id="remove-file">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </div>
+                                    <h6 class="fw-bold mb-3">
+                                        <i class="fas fa-file-alt me-2"></i>
+                                        ไฟล์ที่เลือก (<span id="file-count">0</span> ไฟล์)
+                                    </h6>
+                                    <ul class="list-group" id="selected-file-list">
+                                        <!-- Files will be listed here -->
+                                    </ul>
                                 </div>
-                                
+
                                 <div class="d-grid gap-2 mt-4">
                                     <button class="btn btn-success btn-lg" id="generate-btn" disabled>
                                         <i class="fas fa-cogs me-2"></i>สร้างเอกสาร
@@ -789,7 +803,7 @@
                         </div>
                         <h3 class="fw-bold">กำลังสร้างเอกสาร</h3>
                         <p class="text-muted" id="progress-text">กำลังประมวลผลข้อมูลและสร้างเอกสาร กรุณารอสักครู่...</p>
-                        
+
                         <div class="progress mb-3" style="max-width: 400px; margin: 0 auto;">
                             <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%"></div>
                         </div>
@@ -806,7 +820,7 @@
                             <h2 class="mt-3 fw-bold">สร้างเอกสารสำเร็จ!</h2>
                             <p class="text-muted" id="result-message">เอกสารทั้งหมดถูกสร้างเรียบร้อยแล้ว</p>
                         </div>
-                        
+
                         <div class="row g-4">
                             <div class="col-md-6">
                                 <div class="card bg-light">
@@ -835,21 +849,22 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="col-md-6">
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title fw-bold mb-4">
                                             <i class="fas fa-folder-open me-2"></i>เอกสารที่สร้าง
                                         </h5>
-                                        <div class="file-list" id="file-list" style="max-height: 300px; overflow-y: auto;">
+                                        <div class="file-list" id="file-list"
+                                            style="max-height: 300px; overflow-y: auto;">
                                             <!-- Files will be populated here -->
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="text-center mt-5">
                             <a href="#" class="btn btn-download text-white me-3" id="download-all">
                                 <i class="fas fa-download me-2"></i>ดาวน์โหลดทั้งหมด (ZIP)
@@ -921,7 +936,8 @@
     <footer class="footer">
         <div class="container text-center">
             <div class="mb-3">
-                <i class="fas fa-file-contract fa-3x mb-3" style="background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
+                <i class="fas fa-file-contract fa-3x mb-3"
+                    style="background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
             </div>
             <h5 class="fw-bold mb-3">ระบบสร้างเอกสารอัตโนมัติ</h5>
             <p>&copy; 2024 พัฒนาด้วย Node.js และ Express</p>
@@ -933,7 +949,7 @@
     <script>
         const API_BASE_URL = 'http://localhost:3001';
         let selectedTemplate = null;
-        let uploadedFile = null;
+        let uploadedFiles = [];
         let generatedFiles = [];
         let zipDownloadUrl = null;
 
@@ -953,8 +969,9 @@
         const progressBar = document.getElementById('progress-bar');
         const progressText = document.getElementById('progress-text');
         const newGenerationBtn = document.getElementById('new-generation');
-
-        document.addEventListener('DOMContentLoaded', function() {
+        const selectedFileList = document.getElementById('selected-file-list');
+        const fileCount = document.getElementById('file-count');
+        document.addEventListener('DOMContentLoaded', function () {
             loadTemplates();
             setupEventListeners();
         });
@@ -964,7 +981,7 @@
             try {
                 const response = await fetch(`${API_BASE_URL}/api/templates`);
                 const data = await response.json();
-                
+
                 if (data.success && data.templates.length > 0) {
                     displayTemplates(data.templates);
                 } else {
@@ -979,14 +996,14 @@
         // Display templates
         function displayTemplates(templates) {
             templateList.innerHTML = '';
-            
+
             const iconMap = {
                 'course': '<i class="fas fa-graduation-cap"></i>',
                 'quotation': '<i class="fas fa-file-invoice-dollar"></i>',
                 'report': '<i class="fas fa-chart-line"></i>',
                 'certificate': '<i class="fas fa-certificate"></i>'
             };
-            
+
             templates.forEach(template => {
                 const templateCard = document.createElement('div');
                 templateCard.className = 'col-md-6 col-lg-3';
@@ -1004,13 +1021,13 @@
                 `;
                 templateList.appendChild(templateCard);
             });
-            
+
             setupTemplateListeners();
         }
 
         function setupTemplateListeners() {
             document.querySelectorAll('.select-template-btn').forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     const templateCard = this.closest('.template-card');
                     selectTemplate(templateCard.dataset.templateId);
                 });
@@ -1020,38 +1037,35 @@
         function setupEventListeners() {
             browseBtn.addEventListener('click', () => fileInput.click());
             fileInput.addEventListener('change', handleFileSelect);
-            
+
             uploadArea.addEventListener('dragover', (e) => {
                 e.preventDefault();
                 uploadArea.classList.add('dragover');
             });
-            
+
             uploadArea.addEventListener('dragleave', () => {
                 uploadArea.classList.remove('dragover');
             });
-            
+
             uploadArea.addEventListener('drop', (e) => {
                 e.preventDefault();
                 uploadArea.classList.remove('dragover');
-                
-                if (e.dataTransfer.files.length) {
-                    fileInput.files = e.dataTransfer.files;
-                    handleFileSelect();
-                }
+
+                const droppedFiles = Array.from(e.dataTransfer.files);
+                uploadedFiles = [...uploadedFiles, ...droppedFiles];
+
+                renderFileList();
+                generateBtn.disabled = uploadedFiles.length === 0;
             });
-            
+
             uploadArea.addEventListener('click', () => fileInput.click());
-            removeFileBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                removeFile();
-            });
             generateBtn.addEventListener('click', generateDocuments);
             newGenerationBtn.addEventListener('click', resetApp);
         }
 
         function selectTemplate(templateId) {
             selectedTemplate = templateId;
-            
+
             document.querySelectorAll('.template-card').forEach(card => {
                 if (card.dataset.templateId === templateId) {
                     card.classList.add('selected');
@@ -1063,48 +1077,94 @@
                     card.querySelector('.select-template-btn').innerHTML = 'เลือกเทมเพลต';
                 }
             });
-            
+
             setTimeout(() => {
                 templateSection.style.display = 'none';
                 uploadSection.style.display = 'block';
-                
+
                 document.getElementById('step1').classList.remove('active');
                 document.getElementById('step1').classList.add('completed');
                 document.getElementById('step2').classList.add('active');
-                
+
                 window.scrollTo({ top: 300, behavior: 'smooth' });
             }, 300);
         }
 
+
+
+
         function handleFileSelect() {
-            if (fileInput.files.length === 0) return;
-            
-            uploadedFile = fileInput.files[0];
-            
+            const files = Array.from(fileInput.files);
+            if (files.length === 0) return;
+
             const validTypes = ['.csv', '.xlsx', '.xls'];
-            const fileExt = uploadedFile.name.toLowerCase().substring(uploadedFile.name.lastIndexOf('.'));
-            
-            if (!validTypes.includes(fileExt)) {
-                showError('รองรับเฉพาะไฟล์ CSV, XLSX หรือ XLS');
-                removeFile();
+            const invalidFiles = [];
+            const tooLargeFiles = [];
+
+            // ตรวจสอบและกรองไฟล์ที่ไม่ผ่าน
+            const validFiles = files.filter(file => {
+                const fileExt = file.name.toLowerCase().substring(file.name.lastIndexOf('.'));
+                const isValid = validTypes.includes(fileExt);
+                const isSizeOk = file.size <= 10 * 1024 * 1024;
+
+                if (!isValid) invalidFiles.push(file.name);
+                if (!isSizeOk) tooLargeFiles.push(file.name);
+
+                return isValid && isSizeOk;
+            });
+
+            if (invalidFiles.length > 0) {
+                showError(`ไฟล์ไม่รองรับ: ${invalidFiles.join(', ')}`);
+            }
+            if (tooLargeFiles.length > 0) {
+                showError(`ไฟล์ใหญ่เกิน 10MB: ${tooLargeFiles.join(', ')}`);
+            }
+
+            uploadedFiles = [...uploadedFiles, ...validFiles];  // เพิ่มไฟล์ใหม่
+            fileInput.value = '';  // เคลียร์ input
+
+            renderFileList();
+            generateBtn.disabled = uploadedFiles.length === 0;
+        }
+
+        function renderFileList() {
+            if (uploadedFiles.length === 0) {
+                fileInfo.style.display = 'none';
+                generateBtn.disabled = true;
                 return;
             }
-            
-            if (uploadedFile.size > 10 * 1024 * 1024) {
-                showError('ไฟล์ใหญ่เกินไป (สูงสุด 10MB)');
-                removeFile();
-                return;
-            }
-            
-            fileName.textContent = uploadedFile.name;
-            fileSize.textContent = formatFileSize(uploadedFile.size);
+
             fileInfo.style.display = 'block';
+            selectedFileList.innerHTML = '';
+            fileCount.textContent = uploadedFiles.length;
+
+            uploadedFiles.forEach((file, index) => {
+                const li = document.createElement('li');
+                li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                li.innerHTML = `
+            <div>
+                <i class="fas fa-file-excel text-success me-2"></i>
+                <span class="fw-bold">${file.name}</span>
+                <small class="text-muted ms-2">(${formatFileSize(file.size)})</small>
+            </div>
+            <button class="btn btn-sm btn-outline-danger rounded-circle" onclick="removeFileAtIndex(${index})">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+                selectedFileList.appendChild(li);
+            });
+
             generateBtn.disabled = false;
         }
 
+        function removeFileAtIndex(index) {
+            uploadedFiles.splice(index, 1);
+            renderFileList();
+        }
+
         function removeFile() {
+            uploadedFiles = [];
             fileInput.value = '';
-            uploadedFile = null;
             fileInfo.style.display = 'none';
             generateBtn.disabled = true;
         }
@@ -1118,68 +1178,63 @@
         }
 
         async function generateDocuments() {
-            if (!selectedTemplate || !uploadedFile) {
+            if (!selectedTemplate || uploadedFiles.length === 0) {
                 showError('กรุณาเลือกเทมเพลตและอัปโหลดไฟล์');
                 return;
             }
-            
+
             uploadSection.style.display = 'none';
             progressSection.style.display = 'block';
-            
+
             document.getElementById('step2').classList.remove('active');
             document.getElementById('step2').classList.add('completed');
             document.getElementById('step3').classList.add('active');
-            
+
             window.scrollTo({ top: 400, behavior: 'smooth' });
-            
+
             try {
                 updateProgress(20, 'กำลังอัปโหลดไฟล์...');
-                
+
                 const formData = new FormData();
-                formData.append('file', uploadedFile);
+                uploadedFiles.forEach(file => formData.append('files', file));
                 formData.append('template', selectedTemplate);
-                
+
                 updateProgress(40, 'กำลังส่งข้อมูลไปยังเซิร์ฟเวอร์...');
-                
+
                 const response = await fetch(`${API_BASE_URL}/api/generate-documents`, {
                     method: 'POST',
                     body: formData
                 });
-                
+
                 updateProgress(60, 'กำลังประมวลผลข้อมูล...');
-                
+
                 const data = await response.json();
-                
+
                 if (!response.ok || !data.success) {
                     throw new Error(data.message || 'เกิดข้อผิดพลาดในการสร้างเอกสาร');
                 }
-                
+
                 updateProgress(90, 'กำลังสร้างเอกสาร...');
-                
+
                 generatedFiles = data.files || [];
                 zipDownloadUrl = data.downloadUrl;
-                
+
                 setTimeout(() => {
                     updateProgress(100, 'สร้างเอกสารสำเร็จ!');
-                    
-                    setTimeout(() => {
-                        showResults(data);
-                    }, 800);
+                    setTimeout(() => showResults(data), 800);
                 }, 500);
-                
+
             } catch (error) {
                 console.error('Error generating documents:', error);
                 showError(error.message || 'เกิดข้อผิดพลาดในการสร้างเอกสาร');
-                
-                // Reset to upload section
+
                 setTimeout(() => {
                     progressSection.style.display = 'none';
                     uploadSection.style.display = 'block';
-                    
+
                     document.getElementById('step2').classList.add('active');
                     document.getElementById('step2').classList.remove('completed');
                     document.getElementById('step3').classList.remove('active');
-                    
                     progressBar.style.width = '0%';
                 }, 2000);
             }
@@ -1193,20 +1248,20 @@
         function showResults(data) {
             progressSection.style.display = 'none';
             resultSection.style.display = 'block';
-            
+
             document.getElementById('step3').classList.remove('active');
             document.getElementById('step3').classList.add('completed');
             document.getElementById('step4').classList.add('active');
-            
+
             document.getElementById('result-template').textContent = getTemplateName(selectedTemplate);
             document.getElementById('result-count').textContent = `${data.count} ไฟล์`;
             document.getElementById('result-duration').textContent = data.duration || '-';
             document.getElementById('result-message').textContent = data.message;
-            
+
             // Generate file list
             const fileListElement = document.getElementById('file-list');
             fileListElement.innerHTML = '';
-            
+
             if (data.files && data.files.length > 0) {
                 data.files.forEach((file, index) => {
                     const fileItem = document.createElement('div');
@@ -1226,10 +1281,10 @@
                     fileListElement.appendChild(fileItem);
                 });
             }
-            
+
             // Setup download all button
             const downloadAllBtn = document.getElementById('download-all');
-            downloadAllBtn.onclick = function(e) {
+            downloadAllBtn.onclick = function (e) {
                 e.preventDefault();
                 if (zipDownloadUrl) {
                     window.open(`${API_BASE_URL}${zipDownloadUrl}`, '_blank');
@@ -1238,7 +1293,7 @@
                     showError('ไม่พบลิงก์ดาวน์โหลด');
                 }
             };
-            
+
             window.scrollTo({ top: 500, behavior: 'smooth' });
         }
 
@@ -1254,30 +1309,30 @@
 
         function resetApp() {
             selectedTemplate = null;
-            uploadedFile = null;
+            uploadedFiles = [];
             generatedFiles = [];
             zipDownloadUrl = null;
-            
+
             templateSection.style.display = 'block';
             uploadSection.style.display = 'none';
             progressSection.style.display = 'none';
             resultSection.style.display = 'none';
-            
+
             document.getElementById('step1').classList.add('active');
             document.getElementById('step1').classList.remove('completed');
             document.getElementById('step2').classList.remove('active', 'completed');
             document.getElementById('step3').classList.remove('active', 'completed');
             document.getElementById('step4').classList.remove('active', 'completed');
-            
+
             document.querySelectorAll('.template-card').forEach(card => {
                 card.classList.remove('selected');
                 card.querySelector('.select-template-btn').classList.replace('btn-primary', 'btn-outline-primary');
                 card.querySelector('.select-template-btn').innerHTML = 'เลือกเทมเพลต';
             });
-            
+
             removeFile();
             progressBar.style.width = '0%';
-            
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -1297,9 +1352,9 @@
                     </div>
                 </div>
             `;
-            
+
             document.body.appendChild(toast);
-            
+
             const closeBtn = toast.querySelector('.btn-close');
             if (closeBtn) {
                 closeBtn.addEventListener('click', () => {
@@ -1308,14 +1363,14 @@
                     }
                 });
             }
-            
+
             setTimeout(() => {
                 if (toast.parentNode) {
                     toast.parentNode.removeChild(toast);
                 }
             }, 5000);
         }
-        
+
         function showSuccess(message) {
             const toast = document.createElement('div');
             toast.className = 'position-fixed top-0 end-0 p-3';
@@ -1332,9 +1387,9 @@
                     </div>
                 </div>
             `;
-            
+
             document.body.appendChild(toast);
-            
+
             const closeBtn = toast.querySelector('.btn-close');
             if (closeBtn) {
                 closeBtn.addEventListener('click', () => {
@@ -1343,7 +1398,7 @@
                     }
                 });
             }
-            
+
             setTimeout(() => {
                 if (toast.parentNode) {
                     toast.parentNode.removeChild(toast);
@@ -1352,16 +1407,5 @@
         }
     </script>
 </body>
-</html>Child(toast);
-                }
-            }, 3000);
-            
-            toast.querySelector('.btn-close').addEventListener('click', () => {
-                if (toast.parentNode) {
-                    toast.parentNode.removeChild(toast);
-                }
-            });
-        }
-    </script>
-</body>
+
 </html>

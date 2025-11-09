@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>หน่วยการเรียนรู้</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+
+        body {
+            font-family: 'TH SarabunPSK', 'Sarabun', sans-serif;
+            font-size: 16pt;
+            line-height: 1.5;
+            margin: 0;
+            padding: 20px;
+            color: #000;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 22pt;
+            font-weight: bold;
+            margin: 0;
+            padding-bottom: 10px;
+    
+            display: inline-block;
+        }
+
+        .course-info {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .info-row {
+            margin: 5px 0;
+        }
+
+        .info-row strong {
+            display: inline-block;
+            min-width: 100px;
+            text-align: right;
+            margin-right: 5px;
+        }
+
+        .dotted-line {
+            display: inline-block;
+            border-bottom: 1px dotted #000;
+            min-width: 150px;
+            margin: 0 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th,
+        td {
+            border: 1px solid #000;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 14px;
+        }
+
+        th {
+            font-weight: bold;
+       
+        }
+
+        .unit-name-col {
+            text-align: left;
+            padding-left: 15px;
+        }
+
+      
+
+        .total-row {
+            font-weight: bold;
+
+        }
+
+   
+        .note-section {
+            margin-top: 30px;
+            page-break-inside: avoid;
+        }
+
+        .note-section h3 {
+            font-size: 16pt;
+            font-weight: bold;
+            text-decoration: underline;
+            margin-bottom: 15px;
+        }
+
+        .note-section ol {
+            padding-left: 30px;
+            margin: 0;
+        }
+
+        table {
+            page-break-inside: avoid;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            page-break-after: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>หน่วยการเรียนรู้</h1>
+    </div>
+
+    <div class="course-info">
+        <div class="info-row">
+            <strong>รหัส</strong> <span class="dotted-line">
+                <%= courseCode || '.......................' %>
+            </span>
+            <strong>ชื่อวิชา</strong> <span class="dotted-line" style="min-width: 300px;">
+                <%= courseName || '......................................................' %>
+            </span>
+        </div>
+        <div class="info-row">
+            <strong>ทฤษฎี</strong> <span class="dotted-line" style="min-width: 60px;">
+                <%= theoryHours || '......' %>
+            </span> <strong>ชั่วโมง/สัปดาห์</strong>
+            <strong>ปฏิบัติ</strong> <span class="dotted-line" style="min-width: 60px;">
+                <%= practiceHours || '......' %>
+            </span> <strong>ชั่วโมง/สัปดาห์</strong>
+            <strong>จำนวน</strong> <span class="dotted-line" style="min-width: 60px;">
+                <%= credits || '......' %>
+            </span> <strong>หน่วยกิต</strong>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th rowspan="2" style="width: 10%;">หน่วย<br>ที่</th>
+                <th rowspan="2" style="width: 50%;">หน่วยการเรียนรู้</th>
+                <th colspan="3" style="width: 50%;">เวลาเรียน (ชม.)</th>
+            </tr>
+            <tr>
+                <th style="width: 12.5%;">ทฤษฎี</th>
+                <th style="width: 12.5%;">ปฏิบัติ</th>
+                <th style="width: 12.5%;">รวม</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (units && units.length> 0) { %>
+                <% units.forEach((unit, index)=> { %>
+                    <tr>
+                        <td>
+                            <%= index + 1 %>
+                        </td>
+                        <td class="unit-name-col">
+                            <%= unit.name || '' %>
+                        </td>
+                        <td>
+                            <%= unit.theory || '' %>
+                        </td>
+                        <td>
+                            <%= unit.practice || '' %>
+                        </td>
+                        <td>
+                            <% const theory=parseInt(unit.theory) || 0; const practice=parseInt(unit.practice) || 0;
+                                const sum=theory + practice; %>
+                                <%= sum> 0 ? sum : '' %>
+                        </td>
+                    </tr>
+                    <% }); %>
+                        <% } else { %>
+                            <% for(let i=1; i <=12; i++) { %>
+                                <tr>
+                                    <td>
+                                        <%= i %>
+                                    </td>
+                                    <td class="unit-name-col"></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <% } %>
+                                    <% } %>
+
+                                  
+                                        <tr class="total-row">
+                                            <td colspan="2" style="text-align: center;">
+                                                <strong>ประเมินผลลัพธ์การเรียนรู้ระดับรายวิชา</strong>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+
+                                        <tr class="total-row">
+                                            <td colspan="2" style="text-align: right;"><strong>รวม</strong></td>
+                                            <td><strong>
+                                                    <%= totalTheory || '' %>
+                                                </strong></td>
+                                            <td><strong>
+                                                    <%= totalPractice || '' %>
+                                                </strong></td>
+                                            <td><strong>
+                                                    <%= grandTotal || '' %>
+                                                </strong></td>
+                                        </tr>
+        </tbody>
+    </table>
+
+    <div class="note-section">
+        <h3>คำอธิบาย ตารางหน่วยการเรียน</h3>
+        <ol>
+            <li>ตารางหน่วยการเรียน
+                เป็นการกำหนดระยะเวลาการจัดการเรียนรู้ของแต่ละหน่วยให้สอดคล้องกับหลักสูตรรายวิชาที่กำหนด
+                โดยให้กำหนดชั่วโมงทฤษฎี และชั่วโมงปฏิบัติ</li>
+            <li>การกำหนด ชั่วโมงทฤษฎี และ ชั่วโมงปฏิบัติ ในแต่ละหน่วย
+                ให้มีความสัมพันธ์ชั่วโมงทฤษฎีและชั่วโมงปฏิบัติต่อสัปดาห์ ที่กำหนดไว้ในหลักสูตรรายวิชา</li>
+            <li>ชั่วโมงรวม ทฤษฎีและปฏิบัติ ทั้งรายวิชา ให้เป็นไปตามเงื่อนไขที่กำหนดไว้ในหลักสูตร</li>
+        </ol>
+    </div>
+</body>
+
+</html>

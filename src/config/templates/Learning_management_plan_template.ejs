@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <title>แผนการจัดการเรียนรู้</title>
+  <style>
+    body {
+      font-family: "TH SarabunPSK", "Sarabun", sans-serif;
+      font-size: 18pt;
+      margin: 2cm;
+      line-height: 1.6;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 15px;
+    }
+
+    td,
+    th {
+      border: 1px solid #000;
+      padding: 6px 10px;
+      vertical-align: top;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .bold {
+      font-weight: bold;
+    }
+
+    .section-title {
+      font-weight: bold;
+      margin-top: 12px;
+      margin-bottom: 4px;
+    }
+
+    .indent {
+      margin-left: 40px;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      font-family: "TH SarabunPSK", "Sarabun", sans-serif;
+      margin-top: 0;
+      margin-bottom: 6px;
+    }
+
+    ol {
+      margin-left: 60px;
+    }
+
+    p {
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <table>
+    <tr>
+      <td rowspan="2" style="width: 15%; text-align: center;">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/9/97/Emblem_of_Vocational_Education_Commission_of_Thailand.svg"
+          width="80">
+      </td>
+      <td class="center bold">แผนการจัดการเรียนรู้</td>
+      <td>หน่วยที่ ...........</td>
+    </tr>
+    <tr>
+      <td>
+        รหัสวิชา ............... ชื่อวิชา .................................................<br>
+        ชื่อหน่วยการเรียนรู้ <%= unitName || "" %>
+      </td>
+      <td>
+        สอนครั้งที่ ...............<br>
+        ทฤษฎี ............... ชม.<br>
+        ปฏิบัติ ............... ชม.
+      </td>
+    </tr>
+  </table>
+
+  <p><b>ชื่อเรื่อง/งาน:</b>
+    <%= unitName || "(sheet หน่วยการเรียน > Unit_name แถวที่ 1)" %>
+  </p>
+
+  <div class="section-title">1. ผลลัพธ์การเรียนรู้ระดับหน่วยการเรียน</div>
+  <pre><%= outcom || ".......... (sheet หน่วยการเรียน > Outcom แถวที่ 1)" %></pre>
+
+  <div class="section-title">2. อ้างอิงมาตรฐาน/เชื่อมโยงกลุ่มอาชีพ</div>
+  <div class="indent">
+    <p>
+      <%= tpqi || "(sheet หน่วยการเรียน > tpqi แถวที่ 1)" %> สมรรถนะย่อย
+    </p>
+  </div>
+
+  <div class="section-title">3. สมรรถนะประจำหน่วย</div>
+  <pre><%= tpqi || "......(sheet หน่วยการเรียน > tpqi แถวที่ 1)" %></pre>
+
+  <div class="section-title">4. จุดประสงค์เชิงพฤติกรรม</div>
+  <pre><%= objective || "......(sheet หน่วยการเรียน > Unit_objective แถวที่ 1)" %></pre>
+
+  <div class="section-title">5. สาระการเรียนรู้</div>
+  <pre><%= content || "......(sheet หน่วยการเรียน > Unit_Learning_content แถวที่ 1)" %></pre>
+
+  <div class="section-title">6. กิจกรรมการเรียนรู้</div>
+  <pre><%= activities || "......(sheet หน่วยการเรียน > Unit_Learning_activities แถวที่ 1)" %></pre>
+
+  <div class="section-title">7. สื่อและแหล่งการเรียนรู้</div>
+  <pre><%= resources || "......(sheet หน่วยการเรียน > Unit_learning_resources แถวที่ 1)" %></pre>
+
+  <div class="section-title">8. หลักฐานการเรียนรู้</div>
+  <pre><%= evidence || "......(sheet หน่วยการเรียน > Unit_Evidence_learning แถวที่ 1)" %></pre>
+
+  <div class="section-title">9. การวัดและประเมินผล</div>
+  <pre><%= evaluation || "......(sheet หน่วยการเรียน > Unit_Evaluation แถวที่ 1)" %></pre>
+
+  <div class="indent">
+    <p>9.1 เกณฑ์การปฏิบัติงาน <%= assessmentCriteria || ".............................." %>
+    </p>
+    <p>9.2 วิธีการประเมิน <%= assessmentMethod || ".............................." %>
+    </p>
+    <p>9.3 เครื่องมือประเมิน <%= assessmentTools || ".............................." %>
+    </p>
+  </div>
+
+  <div class="section-title">10. บันทึกผลหลังการจัดการเรียนรู้</div>
+  <div class="indent">
+    <p>10.1 ผลการจัดการเรียนรู้ที่เกิดขึ้นกับผู้เรียน</p>
+
+    <p>10.2 ปัญหา อุปสรรคที่พบ</p>
+
+    <p>10.3 การแก้ไขปัญหา</p>
+    <ol>
+      <li>ผลการแก้ไขปัญหาที่ส่งผลลัพธ์ที่ดีต่อผู้เรียน</li>
+      <br>
+      <li>แนวทางแก้ปัญหาในครั้งต่อไป</li>
+    </ol>
+  </div>
+
+</body>
+
+</html>

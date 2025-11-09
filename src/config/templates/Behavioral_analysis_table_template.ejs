@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ตารางวิเคราะห์พฤติกรรมการเรียนรู้</title>
+    <style>
+        body {
+            font-family: 'Sarabun', 'TH SarabunPSK', sans-serif;
+            margin: 30px;
+            line-height: 1.4;
+            font-size: 14px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .course-info {
+            margin-bottom: 15px;
+        }
+        .course-info p {
+            margin: 3px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 12px;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 5px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+        .unit-name {
+            text-align: left;
+            min-width: 200px;
+        }
+        .col-narrow {
+            width: 40px;
+        }
+        .col-medium {
+            width: 60px;
+        }
+        .note {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #333;
+            font-size: 13px;
+        }
+        .note h3 {
+            text-decoration: underline;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .note ol, .note ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        .note li {
+            margin-bottom: 8px;
+        }
+        .highlight {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>ตารางวิเคราะห์พฤติกรรมการเรียนรู้</h2>
+    </div>
+
+    <div class="course-info">
+        <p><strong>รหัส:</strong> <%= courseCode || '..................' %> 
+           <strong>ชื่อวิชา:</strong> <%= courseName || '..........................................' %></p>
+        <p><strong>ทฤษฎี:</strong> <%= theoryHours || '.....' %> ชั่วโมง/สัปดาห์ 
+           <strong>ปฏิบัติ:</strong> <%= practiceHours || '.....' %> ชั่วโมง/สัปดาห์ 
+           <strong>จำนวน:</strong> <%= credits || '.....' %> หน่วยกิต</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th rowspan="3" class="unit-name"><strong>หน่วยการเรียนรู้</strong></th>
+                <th colspan="9"><strong>ความสามารถที่คาดหวัง</strong></th>
+                <th rowspan="3" class="col-narrow"><strong>รวม</strong></th>
+                <th rowspan="3" class="col-medium"><strong>จำนวนชั่วโมง<br>ท/ป</strong></th>
+            </tr>
+            <tr>
+                <th colspan="6"><strong>พุทธิพิสัย</strong></th>
+                <th rowspan="2" class="col-narrow"><strong>ทักษะพิสัย</strong></th>
+                <th rowspan="2" class="col-narrow"><strong>จิตพิสัย</strong></th>
+                <th rowspan="2" class="col-narrow"><strong>ประยุกต์ใช้</strong></th>
+            </tr>
+            <tr>
+                <th class="col-narrow"><strong>ความรู้</strong></th>
+                <th class="col-narrow"><strong>ความเข้าใจ</strong></th>
+                <th class="col-narrow"><strong>การนำไปใช้</strong></th>
+                <th class="col-narrow"><strong>การวิเคราะห์</strong></th>
+                <th class="col-narrow"><strong>การประเมินค่า</strong></th>
+                <th class="col-narrow"><strong>การสร้างสรรค์</strong></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (units && Array.isArray(units) && units.length > 0) { %>
+                <% units.forEach((unit) => { %>
+                    <tr>
+                        <td class="unit-name"><%= unit.name || '' %></td>
+                        <td><%= unit.knowledge || '' %></td>
+                        <td><%= unit.understanding || '' %></td>
+                        <td><%= unit.application || '' %></td>
+                        <td><%= unit.analysis || '' %></td>
+                        <td><%= unit.evaluation || '' %></td>
+                        <td><%= unit.creation || '' %></td>
+                        <td><%= unit.psychomotor || '' %></td>
+                        <td><%= unit.affective || '' %></td>
+                        <td><%= unit.practical || '' %></td>
+                        <td><%= unit.total || '' %></td>
+                        <td><%= unit.hours || '' %></td>
+                    </tr>
+                <% }); %>
+            <% } else { %>
+                <% for(let i = 1; i <= 13; i++) { %>
+                    <tr>
+                        <td class="unit-name"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                <% } %>
+            <% } %>
+            <tr>
+                <td class="unit-name"><strong>รวม</strong></td>
+                <td><strong><%= totals?.knowledge || '' %></strong></td>
+                <td><strong><%= totals?.understanding || '' %></strong></td>
+                <td><strong><%= totals?.application || '' %></strong></td>
+                <td><strong><%= totals?.analysis || '' %></strong></td>
+                <td><strong><%= totals?.evaluation || '' %></strong></td>
+                <td><strong><%= totals?.creation || '' %></strong></td>
+                <td><strong><%= totals?.psychomotor || '' %></strong></td>
+                <td><strong><%= totals?.affective || '' %></strong></td>
+                <td><strong><%= totals?.practical || '' %></strong></td>
+                <td><strong><%= totals?.total || '' %></strong></td>
+                <td><strong><%= totals?.hours || '' %></strong></td>
+            </tr>
+            <tr>
+                <td colspan="10" class="unit-name"><strong>ประเมินผลลัพธ์การเรียนรู้ระดับรายวิชา (เมื่อเรียนรายวิชานี้สำเร็จแล้วทำอะไรได้)</strong></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="10" class="unit-name"><strong>รวมทั้งรายวิชา</strong></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="note">
+        <h3 class="highlight">คำชี้แจง ตารางวิเคราะห์พฤติกรรมการเรียนรู้ มี 2 รูปแบบ ให้เลือกวิเคราะห์เพียงรูปแบบเดียว</h3>
+        
+        <h3 class="highlight">คำอธิบาย ตารางวิเคราะห์พฤติกรรมการเรียนรู้ ทั้ง 2 รูปแบบ</h3>
+        <ol>
+            <li><strong>หน่วยการเรียนรู้</strong> เป็นหน่วยการเรียนที่ได้จากการวิเคราะห์งานหลัก (Duty) และหรืองานย่อย (Task)</li>
+            <li><strong>พุทธิพิสัย</strong> เป็นการกำหนดความสามารถในการเรียนรู้ของผู้เรียนที่คาดหวัง ในแต่ละหน่วย ว่าจะมีความสามารถในการเรียนรู้อยู่ในระดับใดบ้าง</li>
+            <li><strong>ทักษะพิสัย</strong> เป็นการกำหนดความสามารถในการฝึกทักษะ หรือปฏิบัติงานของผู้เรียนที่คาดหวัง ในแต่ละหน่วย ว่าจะมีความสามารถอยู่ในระดับใดบ้าง</li>
+            <li><strong>จิตพิสัย</strong> เป็นการกำหนดความคาดหวังต่อ ลักษณะนิสัย ลักษณะบุคคลของผู้เรียนในแต่ละหน่วย ว่าจะมีความสามารถในการพัฒนาลักษณะนิสัย ลักษณะบุคคลอยู่ในระดับใดบ้าง</li>
+            <li><strong>ประยุกต์ใช้</strong> เป็นการกำหนดความสามารถของผู้เรียนที่คาดหวังในการนำความรู้ ทักษะ ประสบการณ์ในห้องเรียนของแต่ละหน่วย ไปประยุกต์ใช้ในชีวิตประจำวัน หรืองานอาชีพได้ระดับใดบ้าง</li>
+            <li><strong>การกำหนดชั่วโมง</strong> หลักสูตร ปวส. 2567 ให้จัดเรียน ไม่น้อยกว่า 15 สัปดาห์ โดย<span class="highlight">ไม่รวม</span>การวัดและประเมินผล หลักสูตร ปวช. 2567 ให้จัดเรียน ไม่น้อยกว่า 18 สัปดาห์รวมวัดผล</li>
+            <li><strong>จัดให้มีการประเมินผลลัพธ์การเรียนรู้ระดับรายวิชา</strong> การกำหนดคะแนนให้อยู่ในดุลพินิจครูผู้สอน</li>
+        </ol>
+    </div>
+</body>
+</html>

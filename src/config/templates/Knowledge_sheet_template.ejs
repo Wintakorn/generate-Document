@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <title>ใบความรู้</title>
+  <style>
+    body {
+      font-family: "TH SarabunPSK", "Sarabun", sans-serif;
+      font-size: 18pt;
+      margin: 50px;
+      line-height: 1.6;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 15px;
+    }
+
+    td {
+      vertical-align: top;
+      padding: 6px;
+    }
+
+    h1 {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      font-family: "TH SarabunPSK", "Sarabun", sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>ใบความรู้ ที่ …..</h1>
+
+  <table>
+    <tr>
+      <td>หน่วยที่ ............</td>
+      <td>รหัสวิชา ............ ชื่อวิชา ..................................</td>
+    </tr>
+    <tr>
+      <td>สอนครั้งที่ ............</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td colspan="2">ชื่อหน่วยการเรียนรู้: <%= Unit_name || "…………" %>
+      </td>
+    </tr>
+    <tr>
+      <td>ทฤษฎี .... ชม.</td>
+      <td>ปฏิบัติ .... ชม.</td>
+    </tr>
+    <tr>
+      <td colspan="2">ชื่อเรื่อง: <%= Unit_name || "…………" %>
+      </td>
+    </tr>
+  </table>
+
+  <div class="section-title">1. ผลลัพธ์การเรียนรู้ระดับหน่วยการเรียน</div>
+  <pre><%= Outcom || "" %></pre>
+
+  <div class="section-title">2. อ้างอิงมาตรฐาน/เชื่อมโยงกลุ่มอาชีพ</div>
+
+
+  <div class="section-title">3. สมรรถนะประจำหน่วย</div>
+  <pre><%= tpqi || "" %></pre>
+
+  <div class="section-title">4. จุดประสงค์เชิงพฤติกรรม</div>
+  <pre><%= objective || "" %></pre>
+
+  <div class="section-title">5. เนื้อหาสาระ</div>
+  <pre><%= content || "" %></pre>
+
+  <div class="section-title">6. แบบฝึกหัด / แบบทดสอบ</div>
+  <pre><%= test || "" %></pre>
+
+  <div class="section-title">7. เอกสารอ้างอิง</div>
+  <pre><%= references || ""%></pre>
+
+  <div class="section-title">8. ภาคผนวก (เฉลยแบบฝึกหัด / เฉลยแบบทดสอบ ฯ)</div>
+  <pre><%= answers || "" %></pre>
+
+</body>
+
+</html>
